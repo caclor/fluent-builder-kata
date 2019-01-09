@@ -17,7 +17,7 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_not_close_a_transaction_twice()
         {
-            var transaction = Transaction()
+            var transaction = EmptyTransaction()
                 .Closed(true)
                 .Build();
 
@@ -29,7 +29,7 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_print_an_empty_transaction()
         {
-            var transaction = Transaction()
+            var transaction = EmptyTransaction()
                 .ToPrint(true)
                 .Build();
 
@@ -41,7 +41,7 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_just_close_a_transaction()
         {
-            var transaction = Transaction()
+            var transaction = EmptyTransaction()
                 .Build();
 
             var result = _sut.Close(transaction);
@@ -64,7 +64,7 @@ namespace FluentBuilderKata.Test
         [InlineData(12, "Cannot close transactions created on vacation month")]
         public void transactions_must_be_created_on_working_months(int month, string expected)
         {
-            var transaction = Transaction()
+            var transaction = EmptyTransaction()
                 .CreatedOnMonth(month)
                 .Build();
 

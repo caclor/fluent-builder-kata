@@ -1,6 +1,8 @@
 using System;
 using FluentAssertions;
+using FluentBuilderKata.Test.Builders;
 using Xunit;
+using static FluentBuilderKata.Test.Builders.TransactionBuilder;
 
 namespace FluentBuilderKata.Test
 {
@@ -16,18 +18,10 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_calculate_the_total()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = false,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "iPad",
-                    Category = "Electronics",
-                    Price = 420m
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .WithPrice(420))
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -37,17 +31,10 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_refuse_articles_without_a_name()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = false,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Category = "Electronics",
-                    Price = 420m
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .WithoutName())
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -57,17 +44,10 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_refuse_articles_without_a_category()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = false,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "iPad",
-                    Price = 420m
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .WithoutCategory())
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -77,18 +57,11 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void should_print_a_transaction()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = true,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "iPad",
-                    Category = "Electronics",
-                    Price = 420m
-                }
-            };
+            var transaction = Transaction()
+                .ToPrint(true)
+                .HavingArticle(a => a
+                    .WithPrice(420m))
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -98,24 +71,13 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void transaction_with_alcoholics_must_have_adult_customer()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = false,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "Beer",
-                    Category = "Alcoholics",
-                    Price = 4m
-                },
-                Customer = new Customer
-                {
-                    Name = "Mario",
-                    Surname = "Cioni",
-                    BornOn = new DateTime(1992, 3, 25)
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .InCategory("Alcoholics")
+                    .WithPrice(4m))
+                .HavingCustomer(c => c
+                    .Aged(22))
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -125,24 +87,13 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void alcoholics_cannot_be_sold_to_minors()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = false,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "Beer",
-                    Category = "Alcoholics",
-                    Price = 4m
-                },
-                Customer = new Customer
-                {
-                    Name = "Mario",
-                    Surname = "Cioni",
-                    BornOn = new DateTime(2005, 3, 25)
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .InCategory("Alcoholics")
+                    .WithPrice(4m))
+                .HavingCustomer(c => c
+                    .Aged(17))
+                .Build();
 
             var result = _sut.Close(transaction);
 
@@ -152,18 +103,12 @@ namespace FluentBuilderKata.Test
         [Fact]
         public void selling_alcoholics_requires_a_customer()
         {
-            var transaction = new Transaction
-            {
-                Closed = false,
-                ToPrint = true,
-                Created = new DateTime(2018, 2, 25),
-                Article = new Article
-                {
-                    Name = "Beer",
-                    Category = "Alcoholics",
-                    Price = 4m
-                }
-            };
+            var transaction = Transaction()
+                .HavingArticle(a => a
+                    .InCategory("Alcoholics")
+                    .WithPrice(4m))
+                .HavingNoCustomer()
+                .Build();
 
             var result = _sut.Close(transaction);
 

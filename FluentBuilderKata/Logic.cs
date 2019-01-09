@@ -34,6 +34,16 @@ namespace FluentBuilderKata
 
                 if(transaction.ToPrint)
                     return $"Spent {transaction.Article.Price}. Transaction printed.";
+
+                if (transaction.Article.Discount != null)
+                {
+                    if (string.IsNullOrEmpty(transaction.Article.Discount.Name))
+                        return "Invalid discount";
+
+                    return
+                        $"Spent {transaction.Article.Price}. Discount on next transaction {transaction.Article.Discount.Amount}%";
+                }
+
                 return $"Spent {transaction.Article.Price}";
             }
 

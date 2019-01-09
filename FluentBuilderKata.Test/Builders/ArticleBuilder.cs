@@ -1,3 +1,5 @@
+using System;
+
 namespace FluentBuilderKata.Test.Builders
 {
     public class ArticleBuilder
@@ -5,6 +7,7 @@ namespace FluentBuilderKata.Test.Builders
         private decimal _price;
         private string _name;
         private string _category;
+        private DiscountBuilder _discountBuilder;
 
         public static ArticleBuilder Article() =>
             new ArticleBuilder()
@@ -48,8 +51,15 @@ namespace FluentBuilderKata.Test.Builders
             {
                 Name = _name,
                 Category = _category,
-                Price = _price
+                Price = _price,
+                Discount = _discountBuilder?.Build()
             };
+        }
+
+        public ArticleBuilder HavingDiscount(Func<DiscountBuilder, DiscountBuilder> func)
+        {
+            _discountBuilder = func(DiscountBuilder.Discount());
+            return this;
         }
     }
 }

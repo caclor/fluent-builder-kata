@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBuilderKata", "FluentBuilderKata\FluentBuilderKata.csproj", "{957CDEE2-EBF6-49EA-AABC-F434E3D3BDBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBuilderKata.Test", "FluentBuilderKata.Test\FluentBuilderKata.Test.csproj", "{DF1F7C5C-E20C-454A-8FC0-A787ED8F4FD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{957CDEE2-EBF6-49EA-AABC-F434E3D3BDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957CDEE2-EBF6-49EA-AABC-F434E3D3BDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957CDEE2-EBF6-49EA-AABC-F434E3D3BDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957CDEE2-EBF6-49EA-AABC-F434E3D3BDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1F7C5C-E20C-454A-8FC0-A787ED8F4FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1F7C5C-E20C-454A-8FC0-A787ED8F4FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1F7C5C-E20C-454A-8FC0-A787ED8F4FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1F7C5C-E20C-454A-8FC0-A787ED8F4FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,3 +1,5 @@
+using System;
+
 namespace FluentBuilderKata
 {
     public class Logic
@@ -19,6 +21,17 @@ namespace FluentBuilderKata
 
             if (transaction.Article.IsValid())
             {
+                if (transaction.Article.Category == "Alcoholics")
+                {
+                    if (transaction.Customer == null)
+                        return "Cannot sell this article if no customer is specified";
+
+                    var timeSpan = DateTime.Now.Subtract(transaction.Customer.BornOn);
+                    var age = new DateTime(timeSpan.Ticks).Year;
+                    if (age <= 18)
+                        return "Cannot sell this article to minors";
+                }
+
                 if(transaction.ToPrint)
                     return $"Spent {transaction.Article.Price}. Transaction printed.";
                 return $"Spent {transaction.Article.Price}";

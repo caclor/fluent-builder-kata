@@ -8,5 +8,6 @@ namespace FluentBuilderKata
         public bool ToPrint { get; set; }
         public DateTime Created { get; set; }
         public Article Article { get; set; }
+        public Customer Customer { get; set; }
     }
 }

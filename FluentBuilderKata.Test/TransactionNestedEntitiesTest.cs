@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using Xunit;
 
@@ -19,6 +20,7 @@ namespace FluentBuilderKata.Test
             {
                 Closed = false,
                 ToPrint = false,
+                Created = new DateTime(2018, 2, 25),
                 Article = new Article
                 {
                     Name = "iPad",
@@ -39,6 +41,7 @@ namespace FluentBuilderKata.Test
             {
                 Closed = false,
                 ToPrint = false,
+                Created = new DateTime(2018, 2, 25),
                 Article = new Article
                 {
                     Category = "Electronics",
@@ -58,6 +61,7 @@ namespace FluentBuilderKata.Test
             {
                 Closed = false,
                 ToPrint = false,
+                Created = new DateTime(2018, 2, 25),
                 Article = new Article
                 {
                     Name = "iPad",
@@ -77,6 +81,7 @@ namespace FluentBuilderKata.Test
             {
                 Closed = false,
                 ToPrint = true,
+                Created = new DateTime(2018, 2, 25),
                 Article = new Article
                 {
                     Name = "iPad",
@@ -88,6 +93,81 @@ namespace FluentBuilderKata.Test
             var result = _sut.Close(transaction);
 
             result.Should().Be("Spent 420. Transaction printed.");
+        }
+
+        [Fact]
+        public void transaction_with_alcoholics_must_have_adult_customer()
+        {
+            var transaction = new Transaction
+            {
+                Closed = false,
+                ToPrint = false,
+                Created = new DateTime(2018, 2, 25),
+                Article = new Article
+                {
+                    Name = "Beer",
+                    Category = "Alcoholics",
+                    Price = 4m
+                },
+                Customer = new Customer
+                {
+                    Name = "Mario",
+                    Surname = "Cioni",
+                    BornOn = new DateTime(1992, 3, 25)
+                }
+            };
+
+            var result = _sut.Close(transaction);
+
+            result.Should().Be("Spent 4");
+        }
+
+        [Fact]
+        public void alcoholics_cannot_be_sold_to_minors()
+        {
+            var transaction = new Transaction
+            {
+                Closed = false,
+                ToPrint = false,
+                Created = new DateTime(2018, 2, 25),
+                Article = new Article
+                {
+                    Name = "Beer",
+                    Category = "Alcoholics",
+                    Price = 4m
+                },
+                Customer = new Customer
+                {
+                    Name = "Mario",
+                    Surname = "Cioni",
+                    BornOn = new DateTime(2005, 3, 25)
+                }
+            };
+
+            var result = _sut.Close(transaction);
+
+            result.Should().Be("Cannot sell this article to minors");
+        }
+
+        [Fact]
+        public void selling_alcoholics_requires_a_customer()
+        {
+            var transaction = new Transaction
+            {
+                Closed = false,
+                ToPrint = true,
+                Created = new DateTime(2018, 2, 25),
+                Article = new Article
+                {
+                    Name = "Beer",
+                    Category = "Alcoholics",
+                    Price = 4m
+                }
+            };
+
+            var result = _sut.Close(transaction);
+
+            result.Should().Be("Cannot sell this article if no customer is specified");
         }
     }
 }

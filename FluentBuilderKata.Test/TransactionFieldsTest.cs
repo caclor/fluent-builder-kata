@@ -4,11 +4,11 @@ using Xunit;
 
 namespace FluentBuilderKata.Test
 {
-    public class TransactionTest
+    public class TransactionFieldsTest
     {
         private readonly Logic _sut;
 
-        public TransactionTest()
+        public TransactionFieldsTest()
         {
             _sut = new Logic();
         }
@@ -27,7 +27,7 @@ namespace FluentBuilderKata.Test
         }
 
         [Fact]
-        public void should_print_a_transaction()
+        public void should_print_an_empty_transaction()
         {
             var transaction = new Transaction
             {
@@ -37,7 +37,7 @@ namespace FluentBuilderKata.Test
 
             var result = _sut.Close(transaction);
 
-            result.Should().Be("Transaction has been closed and printed");
+            result.Should().Be("Empty transaction has been closed and printed");
         }
 
         [Fact]
@@ -51,21 +51,21 @@ namespace FluentBuilderKata.Test
 
             var result = _sut.Close(transaction);
 
-            result.Should().Be("Transaction has been closed");
+            result.Should().Be("Empty transaction has been closed");
         }
         
         [Theory]
-        [InlineData(1, "Transaction has been closed")]
-        [InlineData(2, "Transaction has been closed")]
-        [InlineData(3, "Transaction has been closed")]
-        [InlineData(4, "Transaction has been closed")]
-        [InlineData(5, "Transaction has been closed")]
-        [InlineData(6, "Transaction has been closed")]
-        [InlineData(7, "Transaction has been closed")]
+        [InlineData(1, "Empty transaction has been closed")]
+        [InlineData(2, "Empty transaction has been closed")]
+        [InlineData(3, "Empty transaction has been closed")]
+        [InlineData(4, "Empty transaction has been closed")]
+        [InlineData(5, "Empty transaction has been closed")]
+        [InlineData(6, "Empty transaction has been closed")]
+        [InlineData(7, "Empty transaction has been closed")]
         [InlineData(8, "Cannot close transactions created on vacation month")]
-        [InlineData(9, "Transaction has been closed")]
-        [InlineData(10, "Transaction has been closed")]
-        [InlineData(11, "Transaction has been closed")]
+        [InlineData(9, "Empty transaction has been closed")]
+        [InlineData(10, "Empty transaction has been closed")]
+        [InlineData(11, "Empty transaction has been closed")]
         [InlineData(12, "Cannot close transactions created on vacation month")]
         public void transactions_must_be_created_on_working_months(int month, string expected)
         {

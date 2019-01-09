@@ -8,12 +8,23 @@ namespace FluentBuilderKata
                 return "Cannot close an already closed transaction";
 
             if (transaction.ToPrint)
-                return "Transaction has been closed and printed";
+                if(transaction.Article == null)
+                    return "Empty transaction has been closed and printed";
 
             if (transaction.Created.Month == 8 || transaction.Created.Month == 12)
                 return "Cannot close transactions created on vacation month";
 
-            return "Transaction has been closed";
+            if (transaction.Article == null)
+                return "Empty transaction has been closed";
+
+            if (transaction.Article.IsValid())
+            {
+                if(transaction.ToPrint)
+                    return $"Spent {transaction.Article.Price}. Transaction printed.";
+                return $"Spent {transaction.Article.Price}";
+            }
+
+            return "Cannot close: invalid article";
         }
     }
 }

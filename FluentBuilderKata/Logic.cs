@@ -1,5 +1,3 @@
-using System;
-
 namespace FluentBuilderKata
 {
     public class Logic
@@ -8,7 +6,11 @@ namespace FluentBuilderKata
         {
             if (transaction.Closed)
                 return "Cannot close an already closed transaction";
-            throw new NotImplementedException();
+
+            if (transaction.ToPrint)
+                return "Transaction has been closed and printed";
+
+            return "Transaction has been closed";
         }
     }
 }

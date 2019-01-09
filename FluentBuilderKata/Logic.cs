@@ -10,6 +10,9 @@ namespace FluentBuilderKata
             if (transaction.ToPrint)
                 return "Transaction has been closed and printed";
 
+            if (transaction.Created.Month == 8 || transaction.Created.Month == 12)
+                return "Cannot close transactions created on vacation month";
+
             return "Transaction has been closed";
         }
     }
